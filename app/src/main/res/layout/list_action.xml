@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="10dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_person" />
+
+    <TextView
+        android:id="@+id/listActionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/permanent_marker_regular"
+        android:text="Name"
+        android:layout_weight="1"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/listActionTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/permanent_marker_regular"
+        android:text="Time"
+        android:layout_weight="1"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+</LinearLayout>
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.timemanager.LoginFragment"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/NavigateToActionsFragment"
+            app:destination="@id/ActionsFragment"
+            app:enterAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/NavigateToRegisterFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/ActionsFragment"
+        android:name="com.example.timemanager.ui.Actions.ActionsFragment"
+        android:label="fragment_create_action"
+        tools:layout="@layout/fragment_action" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.timemanager.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/NavigateToLoginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+</navigation>

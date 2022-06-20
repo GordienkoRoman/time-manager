@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "686211320494",
+    "project_id": "timemanager-1f639",
+    "storage_bucket": "timemanager-1f639.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686211320494:android:158e7d623ce60abeb33b3f",
+        "android_client_info": {
+          "package_name": "com.example.timemanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686211320494-enfqdgkelm2jd1v3nam31dj5tpsg2v6q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqq5P1y_nGqW3xBu6BsOj3zeXGrjbFRzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686211320494-enfqdgkelm2jd1v3nam31dj5tpsg2v6q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

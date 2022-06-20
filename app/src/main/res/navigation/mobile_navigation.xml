@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.timemanager.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_actionsFragment"
+            app:destination="@id/navigation_actions"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_notifications"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.timemanager.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_notifications_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+        <action
+            android:id="@+id/action_navigation_notifications_to_actionsFragment"
+            app:destination="@id/navigation_actions"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_actions"
+        android:name="com.example.timemanager.ui.Actions.ActionsFragment"
+        android:label="fragment_create_action"
+        tools:layout="@layout/fragment_action" >
+        <action
+            android:id="@+id/action_actionsFragment_to_navigation_notifications"
+            app:destination="@id/navigation_profile"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+        <action
+            android:id="@+id/action_actionsFragment_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+        <action
+            android:id="@+id/action_navigation_actions_to_createActionFragment"
+            app:destination="@id/createActionFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/createActionFragment"
+        android:name="com.example.timemanager.CreateActionFragment"
+        android:label="fragment_create_action"
+        tools:layout="@layout/fragment_create_action" >
+        <action
+            android:id="@+id/action_createActionFragment_to_navigation_actions"
+            app:destination="@id/navigation_actions" />
+    </fragment>
+</navigation>
