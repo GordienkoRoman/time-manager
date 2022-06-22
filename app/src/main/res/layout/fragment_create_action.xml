@@ -28,6 +28,7 @@
             android:textSize="22sp" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/editActionName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,32 +62,6 @@
             android:textSize="22sp"
             android:text="00:00"/>
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/linearName3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearName2">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:text="Action\n Description"
-            android:textSize="22sp" />
-
-        <EditText
-            android:id="@+id/editDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-
-            android:background="@drawable/custom_edit_text"
-            android:ems="10"
-            android:minHeight="40dp"
-            android:singleLine="false"
-            android:textColorHighlight="@color/teal_700" />
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

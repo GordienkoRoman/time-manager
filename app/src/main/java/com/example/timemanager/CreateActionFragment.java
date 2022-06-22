@@ -1,5 +1,8 @@
 package com.example.timemanager;
 
+import static com.example.timemanager.Activity2.overWriteFIle;
+import static com.example.timemanager.Activity2.actionList;
+
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -14,18 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TimePicker;
 
-import java.io.BufferedReader;
+
+import com.example.timemanager.Classes.Action;
+
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.Locale;
-import java.io.File;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,11 +42,11 @@ public class CreateActionFragment extends Fragment implements View.OnClickListen
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    Button but_choose_time;
+    Button but_choose_duration;
     Context ctx;
-    int hour=0, min=0;
-    ImageView accept_icon, deny_icon;
-    EditText editActionName, editActionDescription;
+    int hour, min,position;
+    Boolean isChanging=true;
+    EditText editActionName;
 
     public CreateActionFragment() {
         // Required empty public constructor
@@ -90,34 +90,36 @@ public class CreateActionFragment extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        hour = CreateActionFragmentArgs.fromBundle(getArguments()).getArtHour();
+        if(hour==-1)
+        {
+            isChanging=false;
+            hour = 0;
+        }
+        min = CreateActionFragmentArgs.fromBundle(getArguments()).getArgMinute();
+        position = CreateActionFragmentArgs.fromBundle(getArguments()).getId();
 
         View view = inflater.inflate(R.layout.fragment_create_action, container, false);
-        but_choose_time = view.findViewById(R.id.but_choose_duration);
-        but_choose_time.setOnClickListener(this);
-        accept_icon = view.findViewById(R.id.accept_icon);
-        accept_icon.setOnClickListener(this);
-        deny_icon = view.findViewById(R.id.deny_icon);
-        deny_icon.setOnClickListener(this);
+        but_choose_duration = view.findViewById(R.id.but_choose_duration);
+        but_choose_duration.setOnClickListener(this);
+        view.findViewById(R.id.accept_icon).setOnClickListener(this);
+        view.findViewById(R.id.deny_icon).setOnClickListener(this);
         editActionName = view.findViewById(R.id.editActionName);
-        editActionDescription=view.findViewById(R.id.editDescription);
+        editActionName.setText(CreateActionFragmentArgs.fromBundle(getArguments()).getArgActionName());
+        Button but_choose_duration = view.findViewById(R.id.but_choose_duration);
+        but_choose_duration.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, min));
         return view;
     }
 
-    String getTime() {
-        return "";
-    }
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
             case (R.id.but_choose_duration): {
-                TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        hour = hourOfDay;
-                        min = minute;
-                        but_choose_time.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, min));
-                    }
+                TimePickerDialog.OnTimeSetListener onTimeSetListener = (view, hourOfDay, minute) -> {
+                    hour = hourOfDay;
+                    min = minute;
+                    but_choose_duration.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, min));
                 };
                 TimePickerDialog timePickerDialog = new TimePickerDialog(ctx, AlertDialog.THEME_HOLO_DARK, onTimeSetListener, hour, min, true);
                 timePickerDialog.setTitle("Choose Duration");
@@ -126,22 +128,34 @@ public class CreateActionFragment extends Fragment implements View.OnClickListen
             }
             case (R.id.accept_icon): {
                 String name = editActionName.getText().toString().trim();
-                if(name=="")
+                if(name.equals(""))
                     name = "<blank>";
-                String time = but_choose_time.getText().toString().trim();
+                if(isChanging)
+                {
+                    actionList.get(position).setName(name);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, min);
+                    actionList.get(position).setTime(calendar);
+                    overWriteFIle(getActivity().getBaseContext());
+                    Navigation.findNavController(v).navigate(R.id.navigateToActions);
+                    return;
+                }
 
+                String time = but_choose_duration.getText().toString().trim();
                 try {
                     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
                             getActivity().getBaseContext().openFileOutput("Actions.txt",Context.MODE_APPEND)
                     ));
-                    bw.write(name);
-                    bw.write("  ");
-                    bw.write(hour+"");
-                    bw.write("  ");
-                    bw.write(min+"");
-                    bw.write("\n");
+                    bw.write(name+"\n");
+                    bw.write(hour+"\n");
+                    bw.write(min+"\n");
                     bw.close();
-                    Navigation.findNavController(v).navigate(R.id.action_createActionFragment_to_navigation_actions);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, hour);
+                    calendar.set(Calendar.MINUTE, min);
+                    actionList.add(new Action(name, "description", calendar));
+                    Navigation.findNavController(v).navigate(R.id.navigateToActions);
                 } catch (IOException e) {
                     System.out.println("error");
                 }

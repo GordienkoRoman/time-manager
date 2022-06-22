@@ -35,6 +35,7 @@ public class ListAdapter extends ArrayAdapter<Action> {
         TextView actionName = convertView.findViewById(R.id.listActionName);
        // TextView actionDescription = convertView.findViewById(R.id.actionDe);
         TextView actionTime = convertView.findViewById(R.id.listActionTime);
+        TextView actionTimeLeft = convertView.findViewById(R.id.listActionTimeLeft);
 
         actionName.setText(action.getName());
         Calendar calendar = action.getTime();
@@ -42,6 +43,14 @@ public class ListAdapter extends ArrayAdapter<Action> {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         //actionDescription.setText(action.getDescription());
         actionTime.setText(sdf.format(d));
+        calendar= Calendar.getInstance();
+        if(action.getInfo()!=null) {
+            calendar.setTimeInMillis(action.getInfo().getTriggerTime());
+            d = calendar.getTime();
+            sdf = new SimpleDateFormat("HH:mm");
+            actionTimeLeft.setText(sdf.format(d));
+        }
+
        // actionTime.setText(Integer.toString(d.getHours())+" "+ Integer.toString(d.getMinutes()));
 
         return convertView;

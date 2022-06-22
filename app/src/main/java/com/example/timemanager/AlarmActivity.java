@@ -18,7 +18,9 @@ public class AlarmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarm);
         Intent intent = getIntent();
         TextView textName = findViewById(R.id.actionName);
+        TextView insult = findViewById(R.id.insultText);
         textName.setText(intent.getStringExtra("name"));
+        textName.setText(intent.getStringExtra("insult"));
 
         Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         ringtone = RingtoneManager.getRingtone(this,alarmUri);

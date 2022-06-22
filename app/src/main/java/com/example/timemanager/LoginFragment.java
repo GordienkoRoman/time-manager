@@ -104,7 +104,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Navigation.findNavController(getView()).navigate(R.id.NavigateToActionsFragment);
+                        //Navigation.findNavController(getView()).navigate(R.id.NavigateToActionsFragment);
                     } else {
                         Toast.makeText(ctx, "ERROR", Toast.LENGTH_LONG);
                     }

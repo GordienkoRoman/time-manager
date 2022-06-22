@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class AuthActivity extends AppCompatActivity {
     String name;
 
-   static public ArrayList<Action> actionList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

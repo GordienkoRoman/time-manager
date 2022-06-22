@@ -1,17 +1,32 @@
 package com.example.timemanager.Classes;
 
+import android.app.AlarmManager;
+
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Action {
-    String name,description;
+    String name, description;
     Calendar time;
+    AlarmManager.AlarmClockInfo info;
 
     public Action(String name, String description, Calendar time) {
         this.name = name;
         this.description = description;
         this.time = time;
+    }
+
+    public AlarmManager.AlarmClockInfo getInfo() {
+        return info;
+    }
+
+    public void setInfo(AlarmManager.AlarmClockInfo info) {
+        this.info = info;
+    }
+
+    public Action() {
+
     }
 
     public String getName() {
