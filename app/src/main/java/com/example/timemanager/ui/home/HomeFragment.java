@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.timemanager.Activity2;
 import com.example.timemanager.R;
 import com.example.timemanager.databinding.FragmentHomeBinding;
 
@@ -41,7 +42,9 @@ TextView textHome;
 
         //final TextView textView = binding.textHome;
        // homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        textHome = root.findViewById(R.id.text_home);;
+        textHome = root.findViewById(R.id.text_home);
+        textHome.setText(Activity2.insultString);
+
         return root;
     }
        

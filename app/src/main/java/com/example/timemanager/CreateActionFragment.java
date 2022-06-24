@@ -154,7 +154,7 @@ public class CreateActionFragment extends Fragment implements View.OnClickListen
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, hour);
                     calendar.set(Calendar.MINUTE, min);
-                    actionList.add(new Action(name, "description", calendar));
+                    actionList.add(new Action(name, "description", calendar,actionList.size()));
                     Navigation.findNavController(v).navigate(R.id.navigateToActions);
                 } catch (IOException e) {
                     System.out.println("error");

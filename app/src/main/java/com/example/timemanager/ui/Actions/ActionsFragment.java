@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timemanager.Activity2;
@@ -136,16 +137,17 @@ public class ActionsFragment extends Fragment implements View.OnClickListener {
             tempm = a.getTime().getTime().getMinutes();
             cureentTime.add(Calendar.HOUR_OF_DAY, temph);
             cureentTime.add(Calendar.MINUTE, tempm);
-            AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(cureentTime.getTimeInMillis(), getAlarmPendingIntent(i));
+            cureentTime.setTimeInMillis(cureentTime.getTimeInMillis());
+            AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(cureentTime.getTimeInMillis(), getAlarmPendingIntent(a.getId()));
             actionList.get(i).setInfo(alarmClockInfo);
             if (isOn)
             {
-                alarmManager.cancel(getAlarmPendigIntent2(i, a.getName()));
+                alarmManager.cancel(getAlarmPendigIntent2(a.getId(), a.getName()));
                 actionList.get(i).setInfo(null);
             }
             else
             {
-                alarmManager.setAlarmClock(alarmClockInfo, getAlarmPendigIntent2(i, a.getName()));
+                alarmManager.setAlarmClock(alarmClockInfo, getAlarmPendigIntent2(a.getId(), a.getName()));
                 actionList.get(i).setInfo(alarmClockInfo);
             }
             i++;

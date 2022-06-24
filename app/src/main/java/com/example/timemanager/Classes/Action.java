@@ -7,14 +7,20 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Action {
+    int id;
     String name, description;
     Calendar time;
     AlarmManager.AlarmClockInfo info;
 
-    public Action(String name, String description, Calendar time) {
+    public Action(String name, String description, Calendar time,int id) {
         this.name = name;
         this.description = description;
         this.time = time;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public AlarmManager.AlarmClockInfo getInfo() {

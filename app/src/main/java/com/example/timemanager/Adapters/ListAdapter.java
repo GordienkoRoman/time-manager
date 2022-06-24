@@ -43,10 +43,14 @@ public class ListAdapter extends ArrayAdapter<Action> {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         //actionDescription.setText(action.getDescription());
         actionTime.setText(sdf.format(d));
-        calendar= Calendar.getInstance();
         if(action.getInfo()!=null) {
-            calendar.setTimeInMillis(action.getInfo().getTriggerTime());
-            d = calendar.getTime();
+            int temph, tempm;
+            Calendar calendar2= Calendar.getInstance();
+            Calendar calendar1= Calendar.getInstance();
+            calendar2.set(Calendar.HOUR_OF_DAY,calendar.getTime().getHours()-calendar1.getTime().getHours());
+            calendar2.set(Calendar.MINUTE,calendar.getTime().getMinutes()-calendar1.getTime().getMinutes());
+           // calendartmp.setTimeInMillis(calendar.getTimeInMillis()-calendartmp.getTimeInMillis());
+            d = calendar2.getTime();
             sdf = new SimpleDateFormat("HH:mm");
             actionTimeLeft.setText(sdf.format(d));
         }

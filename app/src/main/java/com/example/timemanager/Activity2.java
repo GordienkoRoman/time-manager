@@ -3,11 +3,15 @@ package com.example.timemanager;
 
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.example.timemanager.Adapters.ListAdapter;
 import com.example.timemanager.Classes.Action;
 import com.example.timemanager.databinding.Activity2Binding;
+import com.example.timemanager.restAPI.InsultModel;
+import com.example.timemanager.restAPI.OnFetchDataListener;
+import com.example.timemanager.restAPI.RequestManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -15,11 +19,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -28,7 +39,7 @@ import java.util.Calendar;
 public class Activity2 extends AppCompatActivity {
     static public ArrayList<Action> actionList = new ArrayList<>();
 
-
+    public static String insultString="FUCK";
     private Activity2Binding binding;
 
     public  static void removeAction(int position){
@@ -40,6 +51,7 @@ public class Activity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        new GetURLData().execute();
         binding = Activity2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         BottomNavigationView navView = findViewById(R.id.nav_bottom_view);
@@ -80,11 +92,42 @@ public class Activity2 extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(br.readLine()));
                     calendar.set(Calendar.MINUTE, Integer.parseInt(br.readLine()));
-                    actionList.add(new Action(str, "description", calendar));
+                    actionList.add(new Action(str, "description", calendar,actionList.size()));
             }
             br.close();
         } catch (IOException e) {
             System.out.println("error");
+        }
+    }
+    private final OnFetchDataListener<InsultModel> listener = new OnFetchDataListener<InsultModel>() {
+        @Override
+        public void onFetchData(InsultModel insult, String message) {
+           insultString = insult.getInsult();
+        }
+
+        @Override
+        public void onError(String message) {
+
+        }
+    };
+    private class GetURLData extends AsyncTask<String,String,String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            RequestManager manager = new RequestManager(Activity2.this);
+            manager.getInsult(listener,"en","json");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
         }
     }
 }
